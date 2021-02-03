@@ -24,14 +24,17 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<produto>>> Getproduto()
         {
-            return await _context.produto.OrderBy(p => p.descricao).ToListAsync();
+            return await _context.produto
+                .Include(p => p.categoria)
+                .OrderBy(p => p.descricao).ToListAsync();
         }
 
         // GET: api/Produto/5
         [HttpGet("{id}")]
         public async Task<ActionResult<produto>> Getproduto(int id)
         {
-            var produto = await _context.produto.FindAsync(id);
+            var produto = await _context.produto
+                .FindAsync(id);
 
             if (produto == null)
             {

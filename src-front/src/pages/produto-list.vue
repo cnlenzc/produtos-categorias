@@ -36,6 +36,7 @@
         return [
           { name: 'id', align: 'right', label: 'id', field: 'id', sortable: true },
           { name: 'descricao', align: 'left', label: 'descricao', field: 'descricao', sortable: true },
+          { name: 'categoria', align: 'left', label: 'categoria', field: 'categoria_nome', sortable: true },
           { name: 'unidade', align: 'left', label: 'UN', field: 'unidade', sortable: true },
           { name: 'valor', align: 'right', label: 'valor', field: 'valor', sortable: true, format: format.decimal },
           { name: 'datahora_cadastro', align: 'left', label: 'criação', field: 'datahora_cadastro', sortable: true, format: format.datetime }
@@ -54,7 +55,7 @@
         try {
           loading.show()
           const resposta = await backend('get', 'produto')
-          this.lista = resposta.data
+          this.lista = resposta.data.map(p => ({ ...p, categoria_nome: (p.categoria || {}).nome || '' }))
         } catch (erro) {
           notifyError('Erro na consulta de produtos', erro)
         } finally {

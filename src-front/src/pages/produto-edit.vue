@@ -11,7 +11,9 @@
             :rules="[ val => val && val.length > 0 || 'obrigatório']" />
         </div>
         <div class="row items-baseline">
-          <q-input v-model="campos.unidade" label="unidade" class="col-6 col-md-3" filled />
+          <q-select filled clearable emit-value map-options v-model="campos.categoriaid" :options="opcoesCategotias"
+            label="categoria" class="col-6 col-md-3" />
+          <q-input v-model="campos.unidade" label="unidade" class="col-6 col-md-3 q-pl-md" filled />
           <q-input filled v-model="campos.valor" label="valor" mask="#.##" fill-mask="0" reverse-fill-mask
             class="col-6 col-md-3 q-pl-md" input-class="text-right" lazy-rules
             :rules="[ val => !!val || 'obrigatório' ]" />
@@ -35,7 +37,8 @@
 
     data() {
       return {
-        campos: {}
+        campos: {},
+        opcoesCategotias: []
       }
     },
 
@@ -44,13 +47,16 @@
         if ((this.$route.params.id || '0') === '0') {
           this.$set(this.campos, 'datahora_cadastro', new Date())
           this.$set(this.campos, 'unidade', 'UN')
-          return
         }
 
         try {
           loading.show()
-          const resposta = await backend('get', 'produto/' + this.$route.params.id)
-          this.campos = resposta.data
+          if ((this.$route.params.id || '0') !== '0') {
+            const resposta = await backend('get', 'produto/' + this.$route.params.id)
+            this.campos = resposta.data
+          }
+          const categorias = await backend('get', 'categoria')
+          this.opcoesCategotias = categorias.data.map(c => ({ label: c.nome, value: c.id }))
         } catch (erro) {
           notifyError('Erro na consulta do produto', erro)
         } finally {
