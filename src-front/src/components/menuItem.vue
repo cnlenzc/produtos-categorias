@@ -16,6 +16,7 @@
 <script>
   export default {
     name: 'menuItem',
+
     props: {
       title: {
         type: String,

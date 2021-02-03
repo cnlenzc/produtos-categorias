@@ -39,7 +39,6 @@ namespace api
                                       builder.AllowAnyHeader();
                                   });
             });
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

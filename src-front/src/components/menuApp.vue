@@ -30,13 +30,13 @@
             title: 'Produto',
             caption: 'cadastro',
             icon: 'school',
-            link: { name: 'produto' }
+            link: { name: 'produto-list' }
           },
           {
             title: 'Categoria',
             caption: 'cadastro',
             icon: 'record_voice_over',
-            link: { name: 'categoria' }
+            link: { name: 'categoria-list' }
           }
         ]
       }

@@ -41,6 +41,7 @@ module.exports = {
     backend: true,
     chrome: true,
     cordova: true,
+    format: true,
     ga: true, // Google Analytics
     loading: true,
     notifyError: true,
@@ -55,6 +56,7 @@ module.exports = {
     'eol-last': 'off',
     'generator-star-spacing': 'off',
     'indent': 'off',
+    'no-extend-native': 'off',
     'one-var': 'off',
     'quote-props': 'off',
     'space-before-function-paren': 'off',

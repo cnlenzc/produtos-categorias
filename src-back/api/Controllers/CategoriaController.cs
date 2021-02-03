@@ -24,7 +24,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<categoria>>> Getcategoria()
         {
-            return await _context.categoria.ToListAsync();
+            return await _context.categoria.OrderBy(c => c.nome).ToListAsync();
         }
 
         // GET: api/Categoria/5

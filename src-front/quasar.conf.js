@@ -22,6 +22,7 @@ module.exports = function (/* ctx */) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'axios',
+      'date-toJson',
       'mixin-global',
       'quasar-extends',
       'utils'

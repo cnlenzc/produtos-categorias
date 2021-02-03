@@ -4,18 +4,31 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { name: 'home', path: '', component: () => import('pages/home.vue') },
       {
-        name: 'produto',
+        name: 'home',
+        path: '',
+        component: () => import('pages/home.vue')
+      },
+      {
+        name: 'produto-list',
         path: 'produto',
-        component: () => import('pages/produto.vue')
+        component: () => import('pages/produto-list.vue')
       },
       {
-        name: 'produtoForm',
+        name: 'produto-edit',
         path: 'produto/:id',
-        component: () => import('pages/produtoForm.vue')
+        component: () => import('pages/produto-edit.vue')
       },
-      { name: 'categoria', path: 'categoria', component: () => import('pages/categoria.vue') }
+      {
+        name: 'categoria-list',
+        path: 'categoria',
+        component: () => import('pages/categoria-list.vue')
+      },
+      {
+        name: 'categoria-edit',
+        path: 'categoria/:id',
+        component: () => import('pages/categoria-edit.vue')
+      }
     ]
   },
 

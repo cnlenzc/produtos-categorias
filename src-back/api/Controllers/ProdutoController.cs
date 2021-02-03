@@ -24,7 +24,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<produto>>> Getproduto()
         {
-            return await _context.produto.ToListAsync();
+            return await _context.produto.OrderBy(p => p.descricao).ToListAsync();
         }
 
         // GET: api/Produto/5

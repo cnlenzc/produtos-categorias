@@ -15,13 +15,14 @@
           <q-input filled v-model="campos.valor" label="valor" mask="#.##" fill-mask="0" reverse-fill-mask
             class="col-6 col-md-3 q-pl-md" input-class="text-right" lazy-rules
             :rules="[ val => !!val || 'obrigatório' ]" />
-          <q-input type="date" v-model="campos.dataCriacao" label="data de criação" class="col-12 col-md-6 q-pl-md"
-            filled />
+        </div>
+        <div class="row items-baseline">
+          cadastro: <strong class="q-ml-md">{{ $format.datetime(campos.datahora_cadastro) }}</strong>
         </div>
         <div>
           <q-btn label="salvar" type="submit" color="primary" />
           <q-btn v-if="campos.id" label="remover" color="negative" class="q-ml-sm" @click="tryLoading(remover)" />
-          <q-btn label="voltar" color="primary" flat class="q-ml-sm" :to="{ name: 'produto' }" />
+          <q-btn label="voltar" color="primary" flat class="q-ml-sm" :to="{ name: 'produto-list' }" />
         </div>
       </q-form>
     </div>
@@ -30,7 +31,7 @@
 
 <script>
   export default {
-    name: 'produtoForm',
+    name: 'produto-edit',
 
     data() {
       return {
@@ -41,8 +42,11 @@
     methods: {
       async atualizar() {
         if ((this.$route.params.id || '0') === '0') {
+          this.$set(this.campos, 'datahora_cadastro', new Date())
+          this.$set(this.campos, 'unidade', 'UN')
           return
         }
+
         try {
           loading.show()
           const resposta = await backend('get', 'produto/' + this.$route.params.id)
@@ -61,13 +65,13 @@
           await backend('post', 'produto', this.campos)
         }
         notifyPositive('Produto salvo com sucesso')
-        this.$router.push({ name: 'produto' })
+        this.$router.push({ name: 'produto-list' })
       },
 
       async remover() {
         await backend('delete', 'produto/' + this.campos.id)
         notifyPositive('Produto removido com sucesso')
-        this.$router.push({ name: 'produto' })
+        this.$router.push({ name: 'produto-list' })
       }
     },
 
